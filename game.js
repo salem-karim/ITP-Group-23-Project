@@ -3,7 +3,7 @@ class Player {
     this.name = name;
     this.health = health;
     this.strength = strength;
-    this.gold = gold
+    this.gold = gold;
     this.sword = false;
     this.shield = false;
   }
@@ -20,8 +20,16 @@ let state = {};
 //Initialize Player with default values
 const player = new Player("Player", 100, 10, 0);
 
+function resetPlayer() {
+  player.health = 100;
+  player.strength = 10;
+  player.gold = 0;
+  player.sword = false;
+  player.shield = false;
+}
 
 function startGame() {
+  resetPlayer();
   //Show the text, options and update the player stats
   showTextNode(1);
   updatePlayerStats();
@@ -36,7 +44,7 @@ function updatePlayerStats() {
 
 function showTextNode(textNodeIndex) {
   //get the right text node object from the array with the given index
-  const textNode = textNodes[textNodeIndex - 1]; 
+  const textNode = textNodes[textNodeIndex - 1];
   // Set the HTML content to the text of the text node object
   textElement.innerText = textNode.text;
   //Remove all old Buttons::w
@@ -94,12 +102,16 @@ const textNodes = [
     options: [
       {
         text: "Sieh dich im Keller nach etwas nützlichen um",
-        setState: () => { player.gold += 5; },
+        setState: () => {
+          player.gold += 5;
+        },
         nextText: 3,
       },
       {
         text: "Trink von einem unbekannten blauen Trank",
-        setState: () => { player.health = 0; },
+        setState: () => {
+          player.health = 0;
+        },
         nextText: 4,
       },
       {
@@ -114,7 +126,9 @@ const textNodes = [
     options: [
       {
         text: "Stürme lautstart den Raum und fordere die Stimmen heraus",
-        setState: () => { player.health = 0; },
+        setState: () => {
+          player.health = 0;
+        },
         nextText: 5,
       },
       {
@@ -159,7 +173,9 @@ const textNodes = [
     options: [
       {
         text: "Stürme lautstart den Raum und fordere die Stimmen heraus",
-        setState: () => { player.health = 0; },
+        setState: () => {
+          player.health = 0;
+        },
         nextText: 5,
       },
       {
@@ -174,18 +190,25 @@ const textNodes = [
     options: [
       {
         text: "ABHAUEN",
-        setState: () => { player.health = 50; },
+        setState: () => {
+          player.health = 50;
+        },
         nextText: 11,
       },
       {
         text: "Einen lächerlichen Faustkampf beginnen",
-        setState: () => { player.health = 0; },
+        setState: () => {
+          player.health = 0;
+        },
         nextText: 9,
       },
       {
         text: "Ihn bitten dich durchzulassen und ihm 5 Goldmünzen anbieten",
         requiredState: (player) => player.gold >= 5,
-        setState: () => { player.gold -= 5; player.health = 0; },
+        setState: () => {
+          player.gold -= 5;
+          player.health = 0;
+        },
         nextText: 10,
       },
     ],
@@ -231,6 +254,5 @@ const textNodes = [
     ],
   },
 ];
-
 
 startGame();
