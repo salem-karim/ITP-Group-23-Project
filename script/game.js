@@ -39,7 +39,7 @@ const player = new Player("Player", "-", 100, 10, 0, "-", "-", false, false);
 
 function startGame() {
   //Show the text, options and update the player stats
-  showTextNode(1);
+  showTextNode(2);
   updatePlayerStats();
 }
 
@@ -115,6 +115,7 @@ function debugLogs() {
 }
 // Object array with all the text nodes
 const textNodes = [
+  // ID 1 wird nicht benützt
   {
     id: 1,
     text: "Willkommen zu unserem Text Adventure Game!",

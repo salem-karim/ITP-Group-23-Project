@@ -1,33 +1,21 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <link href="styles.css" rel="stylesheet" />
-  <script defer src="game.js"></script>
-  <title>Text Adventure</title>
-</head>
-
-<body>
-  <div class="container">
-    <div id="text">Text</div>
-    <div id="option-buttons" class="btn-grid">
-      <button class="btn">Option 1</button>
-      <button class="btn">Option 2</button>
-      <button class="btn">Option 3</button>
-      <button class="btn">Option 4</button>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Menu - Text Adventure</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="css/menu.css" rel="stylesheet">
+    <script defer src="../script/navbar.js"></script>
+  </head>
+  <body>
+    
+    <div id="navbar"></div>
+    
+    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+      <a href="sites/game.html" class="btn btn-primary btn-lg">Play</a>
     </div>
-    <div id="player-stats">
-      Gold: <span id="gold">0</span> | Gesundheit:
-      <span id="health">100</span> | Stärke: <span id="strength">10</span>
-      <br />
-      Klasse: <span id="class">-</span> | Waffe: <span id="weapon">-</span> |
-      Schild:
-      <span id="shield">-</span>
-    </div>
-  </div>
-</body>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
 </html>

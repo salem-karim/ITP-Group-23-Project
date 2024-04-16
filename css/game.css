@@ -6,7 +6,7 @@ body {
     align-items: center;
     width: 100vw;
     height: 100vh;
-    background-image: url("images/OIG1.jpeg");
+    background-image: url("../images/OIG1.jpeg");
     background-repeat: no-repeat;
     background-size: 100% 100%;
   }
