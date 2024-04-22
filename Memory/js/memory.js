@@ -1,4 +1,4 @@
-var input = prompt("Geben Sie Ihren Namen ein:");
+var input = alert("Du hast 2 Minuten Zeit um das Memory zu lösen. Viel Spaß!");
 var seconds = 1;
 var tries = 0;
 var prevoiusCardId = 0;
@@ -6,8 +6,9 @@ var cards = [];
 createCards();
 var flippedCards = 0;
 var matchedCardIds = [];
+var success = 0;
 
-document.getElementById("player").textContent = input;
+
 var counter = setInterval(countTimer, 1000); // set the counter
 
 function countTimer() {
@@ -102,6 +103,12 @@ function flipCard(id) {
           if (document.getElementById(prevoiusCardId)) {
             document.getElementById(prevoiusCardId).style.backgroundImage =
               "url('pics/memoryBgI.png')";
+              success++;
+              console.log(success);
+              //Testzwecke
+              if (success === 2){ 
+                youWon();
+              }
           }
           matchedCardIds.push(prevoiusCardId, id);
           prevoiusCardId = 0;
@@ -139,4 +146,14 @@ function flipCard(id) {
 function resetFlippedCards() {
   cards.forEach((card) => card.addEventListener("click", clickCard));
   flippedCards = 0;
+}
+
+function youWon(){
+  if (seconds < 120){
+  alert("Herzlichen Glückwunsch! Du hast das Memory in " + tries + " Versuchen und " + seconds + " Sekunden gelöst! Du erhälst 60 Gold!");
+  window.location.href = '../sites/game.html?fromMemoryGame=true';
+  } else {
+    alert("Du warst etwas zu Langsam! Noch einmal versuchen?");
+    window.location.reload();
+}
 }

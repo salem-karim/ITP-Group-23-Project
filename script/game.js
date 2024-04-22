@@ -10,6 +10,9 @@ class Player {
     shield,
     beer,
     beerMission,
+    memoryMission,
+    ring,
+    ringMission,
   ) {
     this.name = name;
     this.type = type;
@@ -20,22 +23,28 @@ class Player {
     this.shield = shield;
     this.beer = beer;
     this.beerMission = beerMission;
+    this.memoryMission = memoryMission;
+    this.ring = false;
+    this.ringMission = false;
   }
 }
 
 // Gets needed Elements from HTML File
-const textElement = document.getElementById("text");
-const optionButtonsElement = document.getElementById("option-buttons");
-const goldElement = document.getElementById("gold");
-const healthElement = document.getElementById("health");
-const strengthElement = document.getElementById("strength");
-const weaponElement = document.getElementById("weapon");
-const shieldElement = document.getElementById("shield");
-const classElement = document.getElementById("class");
+let textElement = document.getElementById("text");
+let optionButtonsElement = document.getElementById("option-buttons");
+let goldElement = document.getElementById("gold");
+let healthElement = document.getElementById("health");
+let strengthElement = document.getElementById("strength");
+let weaponElement = document.getElementById("weapon");
+let shieldElement = document.getElementById("shield");
+let classElement = document.getElementById("class");
 //Delcare empty state
 let state = {};
+
 //Initialize Player with default values
-const player = new Player("Player", "-", 100, 10, 0, "-", "-", false, false);
+const player = new Player("Player", "-", 100, 10, 0, "-", "-", false, false, false, false, false);
+
+
 
 function startGame() {
   //Show the text, options and update the player stats
@@ -74,6 +83,19 @@ function showTextNode(textNodeIndex) {
       optionButtonsElement.appendChild(button);
     }
   });
+  if (textNodeIndex === 18) {
+    const memoryButton = document.createElement("button");
+    memoryButton.innerText = "Memory spielen";
+    memoryButton.classList.add("btn");
+    memoryButton.addEventListener("click", () => {
+      player.gold += 60;
+      player.memoryMission = true;
+      saveGameState(textNode);
+      window.location.href = '../Memory/index.html'; // Der Pfad zur neuen Seite
+    });
+    optionButtonsElement.appendChild(memoryButton);
+  }
+  console.log(textNodeIndex);
 }
 function resetPlayer() {
   player.health = 100;
@@ -84,6 +106,9 @@ function resetPlayer() {
   player.beer = false;
   player.beerMission = false;
   player.type = "-";
+  player.memoryMission = false;
+  player.ring = false;
+  player.ringMission = false;
   updatePlayerStats();
 }
 
@@ -112,7 +137,59 @@ function selectOption(option) {
 function debugLogs() {
   console.log("Player: ", player);
   console.log("State: ", state);
+  
 }
+
+
+// Speichern Sie den Spielzustand, bevor Sie zur Memory-Seite umleiten
+function saveGameState(textNode) {
+  const gameState = {
+    textNodeIndex: textNode,
+    playerStats: {
+      gold: player.gold,
+      health: player.health,
+      strength: player.strength,
+      class: player.type,
+      weapon: player.weapon,
+      shield: player.shield,
+      beer: player.beer,
+      beerMission: player.beerMission,
+      memoryMission: player.memoryMission,
+      ring: player.ring,
+      ringMission: player.ringMission,
+    }
+  };
+  
+  localStorage.setItem('gameState', JSON.stringify(gameState));
+}
+
+function loadGameState() {
+  const savedGameState = localStorage.getItem('gameState');
+  if (savedGameState) {
+    const gameState = JSON.parse(savedGameState);
+    // Set the text node to the saved index
+    textNodeIndex = gameState.textNodeIndex;
+    // Set the player stats to the loaded values
+    
+    player.gold = gameState.playerStats.gold;
+    player.health = gameState.playerStats.health;
+    player.strength = gameState.playerStats.strength;
+    player.type = gameState.playerStats.class;
+    player.weapon = gameState.playerStats.weapon;
+    player.shield = gameState.playerStats.shield;
+    player.beer = gameState.playerStats.beer;
+    player.beerMission = gameState.playerStats.beerMission;
+    player.memoryMission = gameState.playerStats.memoryMission;
+    player.ring = gameState.playerStats.ring;
+    player.ringMission = gameState.playerStats.ringMission;
+    // Update the display accordingly
+    updatePlayerStats();
+    console.log(player);
+  }
+}
+
+
+
 // Object array with all the text nodes
 const textNodes = [
   // ID 1 wird nicht benützt
@@ -135,7 +212,7 @@ const textNodes = [
         setState: () => {
           player.type = "Barbare";
           player.weapon = "Großaxt";
-          player.strength += 7;
+          //player.strength += 7;
         },
         nextText: 3,
       },
@@ -145,7 +222,7 @@ const textNodes = [
           player.type = "Krieger";
           player.weapon = "Langschwert";
           player.shield = "Holzschild";
-          player.strength += 5;
+          //player.strength += 5;
         },
         nextText: 3,
       },
@@ -155,7 +232,7 @@ const textNodes = [
           player.type = "Magier";
           player.weapon = "Zauberstab";
           player.shield = "Zauberbuch";
-          player.strength += 2;
+          //player.strength += 2;
         },
         nextText: 3,
       },
@@ -165,7 +242,7 @@ const textNodes = [
           player.type = "Dieb";
           player.weapon = "Dolch";
           player.shield = "Kleiner Schild";
-          player.strength += 3;
+          //player.strength += 3;
         },
         nextText: 3,
       },
@@ -303,7 +380,7 @@ const textNodes = [
   },
   {
     id: 13,
-    text: "Du brauchst jetzt etwas Geld, Ausrüstung und volle Gesundheit. Du siehst ein paar Händler und andere Gestalten.",
+    text: "Du siehst ein paar Händler und andere Gestalten. Um im Schloß Rache zu nehmen, brauchst du 100 Gesundheit und 25 Stärke.",
     options: [
       {
         text: "Zum Schmied gehen",
@@ -320,9 +397,15 @@ const textNodes = [
       {
         text: "Wieder zurück zum Schloss (benötigt 100 Gesundheit und 25 Stärke)",
         requiredState: (player) =>
-          player.health >= 100 && player.strength >= 25,
+        player.health >= 100 && player.strength >= 25 && player.shield == "Eisenschild" && player.weapon == "Fortgeschrittenenschwert", 
         nextText: 17,
       },
+      {
+        text: "Ab in den Wald",
+        requiredState: (player) => 
+        player.strength >= 15 && player.ringMission == false && player.ring == false, 
+        nextText: 19,
+      }
     ],
   },
   {
@@ -335,10 +418,10 @@ const textNodes = [
       },
       {
         text: "Ein Anfängerschwert kaufen (30 Gold)",
-        requiredState: (player) => player.gold >= 30,
+        requiredState: (player) => player.gold >= 30 && player.weapon != "Anfängerschwert" && player.weapon != "Fortgeschrittenenschwert",
         setState: () => {
           player.gold -= 30;
-          player.sword = "Anfängerschwert";
+          player.weapon = "Anfängerschwert";
           player.strength += 5;
         },
         nextText: 13,
@@ -348,18 +431,18 @@ const textNodes = [
         requiredState: (player) => player.gold >= 100,
         setState: () => {
           player.gold -= 100;
-          player.sword = "Fortgeschrittenenschwert";
+          player.weapon = "Fortgeschrittenenschwert";
           player.strength += 10;
         },
         nextText: 13,
       },
       {
         text: "Einen Eisenschild kaufen (50 Gold)",
-        requiredState: (player) => player.gold >= 50,
+        requiredState: (player) => player.gold >= 50 && player.shield != "Eisenschild",
         setState: () => {
           player.gold -= 50;
           player.shield = "Eisenschild";
-          player.health += 10;
+          
         },
         nextText: 13,
       },
@@ -367,7 +450,7 @@ const textNodes = [
   },
   {
     id: 15,
-    text: "Der Mann bietet dir für jede Mission 20 Gold an.\n1. Er sagt: Ich brauche ein Bier, aber ich kann nicht selbst gehen. Kannst du mir eins holen?\n 2. WEITERE MISSIONEN",
+    text: "Der Mann bietet dir für jede Mission 50 Gold an.\n1. Er sagt: Ich brauche ein Bier, aber ich kann nicht selbst gehen. Kannst du mir eins holen?\n 2. Außerdem: Ich habe im Wald meinen Ring verloren. Kannst du ihn mir holen? (Zugang zum Wald benötigt 15 Stärke)",
     options: [
       {
         text: "Zurückgehen",
@@ -377,16 +460,21 @@ const textNodes = [
         text: "Bier geben",
         requiredState: (player) => player.beer == true,
         setState: () => {
-          player.gold += 20;
+          player.gold += 50;
           player.beer = false;
           player.beerMission = true;
         },
         nextText: 13,
       },
       {
-        text: "Nächste Mission...",
-        requiredState: (player) => player.beerMission == true,
-        nextText: 19,
+        text: "Ring geben",
+        requiredState: (player) => player.ring == true,
+        setState: () => {
+          player.gold += 50;
+          player.ring = false;
+          player.ringMission = true;
+        },
+        nextText: 13,
       },
     ],
   },
@@ -399,7 +487,7 @@ const textNodes = [
         nextText: 13,
       },
       {
-        text: "Ein Bier für den Misteriösen Mann draußen kaufen (5 Gold)",
+        text: "Ein Bier für den Mysteriösen Mann draußen kaufen (5 Gold)",
         requiredState: (player) =>
           player.gold >= 5 &&
           player.beer == false &&
@@ -422,29 +510,76 @@ const textNodes = [
       },
       {
         text: "Zu dem Mann am runden Tisch gehen",
+        requiredState: (player) => player.memoryMission == false,
         nextText: 18,
       },
     ],
   },
   {
     id: 17,
-    text: "...",
+    text: "Zeit für die Rache!",
     nextText: 13,
   },
   {
     id: 18,
-    text: "Der Mann bietet Glücksspiel an. Traust du dich?",
+    text: "Der Mann bietet dir 60 Gold für eine erfolgreiche Runde Memory an",
     options: [
       {
         text: "Verlasse die Kneipe",
         nextText: 13,
       },
+    ],
+  },
+  {
+    id: 19,
+    text: "Du gehst in den Wald und siehst eine Höhle. Du hörst ein Geräusch. In der Höhle befindet sich ein kleiner Kobold, der auf dich zukommt.",
+    options: [
       {
-        text: "EIN MINISPIEL ÜBERLEGEN",
+        text: "In die Höhle gehen und kämpfen!",
+        setState: () => {
+          player.health -= 10;
+        },
         nextText: 20,
       },
+      {
+        text: "Zurück in die Stadt fliehen!",
+        nextText: 13,
+      },
+    ],
+  },
+  {
+    id: 20,
+    text: "Du schlägst den Kobold in die Fluch und er verletzt dich leicht. Du siehst eine Truhe in der Höhle.",
+    
+    options: [
+      {
+        text: "Truhe öffnen",
+        setState: () => {
+          player.gold += 50;
+          player.ring = true;
+        },
+        nextText: 21,
+      }
+    ],
+  },
+  {
+    id: 21,
+    text: "Du findest den verlorene Ring des mysteriösen Mannes. Außerdem findest du 50 Goldmünzen in der Truhe.",
+    options: [
+      {
+        text: "Zurück in die Stadt",
+        nextText: 13,
+      }
     ],
   },
 ];
 
-startGame();
+
+if (window.location.search.includes('fromMemoryGame=true')) {
+  loadGameState();
+  showTextNode(13);
+  updatePlayerStats();
+  
+} else {
+  startGame();
+}
