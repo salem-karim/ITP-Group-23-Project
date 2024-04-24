@@ -24,8 +24,8 @@ class Player {
     this.beer = beer;
     this.beerMission = beerMission;
     this.memoryMission = memoryMission;
-    this.ring = false;
-    this.ringMission = false;
+    this.ring = ring;
+    this.ringMission = ringMission;
   }
 }
 
@@ -360,7 +360,7 @@ const textNodes = [
   },
   {
     id: 11,
-    text: "Der Wächter nimmt das Gold und tötet dich trotzdem. Du bist tot.",
+    text: "Der Wächter nimmt dir das Gold ab tötet dich. Du bist tot.",
     options: [
       {
         text: "Restart",
@@ -422,7 +422,7 @@ const textNodes = [
         setState: () => {
           player.gold -= 30;
           player.weapon = "Anfängerschwert";
-          player.strength += 5;
+          player.strength = 15;
         },
         nextText: 13,
       },
@@ -432,7 +432,7 @@ const textNodes = [
         setState: () => {
           player.gold -= 100;
           player.weapon = "Fortgeschrittenenschwert";
-          player.strength += 10;
+          player.strength = 25;
         },
         nextText: 13,
       },
@@ -517,8 +517,13 @@ const textNodes = [
   },
   {
     id: 17,
-    text: "Zeit für die Rache!",
-    nextText: 13,
+    text: "Zeit für die Rache! Diesmal bist du besser ausgerüstet. Von weitem siehst du den Wächter, der dich bereits angegriffen hat. Dieses mal greift er dich nicht gleich an. Er sagt, wenn du ihm 3 Fragen beantworten kannst, lässt er dich passieren. Wenn du jedoch eine Frage falsch beantwortest, stribst du.",
+      options: [
+      {
+        text: "Weiter...",
+        nextText: 22,
+      },
+   ],
   },
   {
     id: 18,
@@ -527,6 +532,7 @@ const textNodes = [
       {
         text: "Verlasse die Kneipe",
         nextText: 13,
+        //Funktionsbutton für Memory wird in selectOption erstellt
       },
     ],
   },
@@ -549,7 +555,7 @@ const textNodes = [
   },
   {
     id: 20,
-    text: "Du schlägst den Kobold in die Fluch und er verletzt dich leicht. Du siehst eine Truhe in der Höhle.",
+    text: "Du schlägst den Kobold in die Fluch und er verletzt dich leicht. Du verlierst 10 Gesundheitspunkte. Du siehst eine Truhe in der Höhle.",
     
     options: [
       {
@@ -572,6 +578,189 @@ const textNodes = [
       }
     ],
   },
+  {
+    id: 22,
+    text: "Frage 1: Wie viele Goldmünzen hast du am Anfang des Spiels im Keller gefunden?",
+    options: [
+      {
+        text: "5",
+        nextText: 24,
+      },
+      {
+        text: "10",
+        nextText: 23,
+      },
+      {
+        text: "15",
+        nextText: 23,
+      },
+      {
+        text: "25",
+        nextText: 23,
+      }
+    ],
+  },
+  {
+    id: 23,
+    text: "Falsch! Du stirbst.",
+    options: [
+      {
+        text: "Restart",
+        nextText: -1,
+      },
+    ],
+  },
+  {
+    id: 24,
+    text: "Richtig! Frage 2: Was wollte der mysteriöse Mann in der Stadt von dir?",
+    options: [
+      {
+        text: "Ein Bier und eine Halskette",
+        nextText: 23,
+      },
+      {
+        text: "Ein Bier und ein Armband",
+        nextText: 23,
+      },
+      {
+        text: "Ein Bier und einen Ring",
+        nextText: 25,
+      },
+      {
+        text: "Ein Bier und eine Uhr",
+        nextText: 23,
+      }
+    ],
+  },
+  {
+    id: 25,
+    text: "Auch richtig! Frage 3: Von welchem Videospiel waren die Bilder im Memory?",
+    options: [
+      {
+        text: "Sonic",
+        nextText: 23,
+      },
+      {
+        text: "Zelda",
+        nextText: 23,
+      },
+      {
+        text: "Super Mario",
+        nextText: 26,
+      },
+      {
+        text: "Grand Theft Auto",
+        nextText: 23,
+      }
+    ],
+  },
+  {
+    id: 26,
+    text: "Glück gehabt! Du hast alle Fragen richtig beantwortet und darfst passieren. Jedoch ist die Tür zum Schloss verschlossen. Der Wächter lacht und sagt: Ich habe dir nicht gesagt, dass ich dir den Schlüssel gebe! Die Tür sieht robust aus. Jedoch bist du ein stark genug, um sie einzuschlagen.",
+    options: [
+      {
+        text: "Die Tür genauer untersuchen",
+        nextText: 27,
+      }
+    ],
+  },
+  {
+    id: 27,
+    text: "Du musst 2 mal gegen die Tür schlagen. Pass auf, dass du nicht auf etwas anderes schlägst!",
+    options: [
+      {
+        text: "Gegen den Wächter schlagen",
+        nextText: 11,
+      },
+      {
+        text: "Gegen die Wand schlagen",
+        nextText: 28,
+      },
+      {
+        text: "Gegen die Tür schlagen",
+        nextText: 29,
+      },
+      {
+        text: "Gegen den Boden schlagen",
+        nextText: 28,
+      }
+    ],
+  },
+  {
+    id: 28,
+    text: "Du hast verfehlt! Versuch es nochmal.",
+    options: [
+      {
+        text: "Weiter...",
+        nextText: 27,
+      }
+    ]
+  },
+  {
+    id: 29,
+    text: "Du hast getroffen! Noch 1 mal!",
+    options: [
+      {
+        text: "Gegen die Wand schlagen",
+        nextText: 27,
+      },
+      {
+        text: "Gegen die Tür schlagen",
+        nextText: 30,
+      },
+      {
+        text: "Gegen den Wächter schlagen",
+        nextText: 11,
+      },
+      {
+        text: "Gegen den Boden schlagen",
+        nextText: 27,
+      }
+    ],
+  },
+  {
+    id: 30,
+    text: "Du hast die Tür aufgebrochen! Du betrittst das Schloss und siehst vorne im Gang eine weitere Wache. Er sieht nicht sehr freundlich aus. Er bemerkt dich und fragt was du hier zu suchen hast. Was antwortest du?",
+    options: [
+      {
+        text: "Ich bin hier um Rache zu nehmen!",
+        requiredState: (player) => player.strength >= 25,
+        nextText: 31,
+      },
+      {
+        text: "Ich arbeite hier auch! Ich bin der neue Wächter! (lügen)",
+        nextText: 32,
+      },
+      {
+        text: "Ich bin hier um zu stehlen!",
+        nextText: 31,
+      },
+    ],
+  },
+  {
+    id: 31,
+    text: "Der Wächter läuft ohne zu zögern auf dich zu und greift dich an. Nach einem glorreichen und langen Kampf besiegst du ihn und gehst weiter in den nächsten Raum.",
+    options: [
+      {
+        text: "Weiter...",
+        nextText: 33,
+      }
+    ],
+  },
+  {
+    id: 32,
+    text: "Der Wächter lacht und sagt: Du bist nicht der neue Wächter! Er greift dich an. Nach einem glorreichen und langen Kampf besiegst du ihn und gehst weiter in den nächsten Raum.",
+    options: [
+      {
+        text: "Weiter...",
+        nextText: 33,
+      }
+    ],
+  },
+  {
+    id: 33,
+    text: "To be continued...",
+  }
 ];
 
 
