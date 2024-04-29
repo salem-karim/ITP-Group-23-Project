@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Smash the door</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="row">
+        <div class="col-sm"></div>
+        <div class="col-sm-8" id="map">
+            <div id="doorDiv" class="clicking2" onmousedown="damage(event)" onmouseup="change(event)">
+                <img src="doorMine1.png" id="1" class="pic">
+            </div>
+        </div>
+    </div>
+    <audio id="clickSound" src="hitSound2.mp3"></audio>
+    <script src="door.js"></script>
+</body>
+</html>

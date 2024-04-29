@@ -13,6 +13,8 @@ class Player {
     memoryMission,
     ring,
     ringMission,
+    sword,
+    swordMission
   ) {
     this.name = name;
     this.type = type;
@@ -26,6 +28,8 @@ class Player {
     this.memoryMission = memoryMission;
     this.ring = ring;
     this.ringMission = ringMission;
+    this.sword = sword;
+    this.swordMission = swordMission;
   }
 }
 
@@ -42,7 +46,7 @@ let classElement = document.getElementById("class");
 let state = {};
 
 //Initialize Player with default values
-const player = new Player("Player", "-", 100, 10, 0, "-", "-", false, false, false, false, false);
+const player = new Player("Player", "-", 100, 10, 0, "-", "-", false, false, false, false, false, false, false);
 
 
 
@@ -95,6 +99,38 @@ function showTextNode(textNodeIndex) {
     });
     optionButtonsElement.appendChild(memoryButton);
   }
+  if (textNodeIndex === 34) { 
+    const searchGameButton = document.createElement("button");
+    searchGameButton.innerText = "Das Feld genauer untersuchen";
+    searchGameButton.classList.add("btn");
+    searchGameButton.addEventListener("click", () => {
+      player.sword = true;
+      saveGameState(textNode);
+      window.location.href = '../Suchbild/index.html';
+    });
+    optionButtonsElement.appendChild(searchGameButton);
+  }
+
+  if (textNodeIndex === 37) {
+    const doorButton = document.createElement("button");
+    doorButton.innerText = "Die Tür aufbrechen";
+    doorButton.classList.add("btn");
+    doorButton.addEventListener("click", () => {
+      saveGameState(textNode);
+      window.location.href = '../Door1/index.html';
+    });
+    optionButtonsElement.appendChild(doorButton);
+  }
+  if (textNodeIndex === 33) {
+    const doorButton = document.createElement("button");
+    doorButton.innerText = "Die Tür aufbrechen";
+    doorButton.classList.add("btn");
+    doorButton.addEventListener("click", () => {
+      saveGameState(textNode);
+      window.location.href = '../Door2/index.html';
+    });
+    optionButtonsElement.appendChild(doorButton);
+  }
   console.log(textNodeIndex);
 }
 function resetPlayer() {
@@ -109,6 +145,8 @@ function resetPlayer() {
   player.memoryMission = false;
   player.ring = false;
   player.ringMission = false;
+  player.sword = false;
+  player.swordMission = false;
   updatePlayerStats();
 }
 
@@ -157,6 +195,8 @@ function saveGameState(textNode) {
       memoryMission: player.memoryMission,
       ring: player.ring,
       ringMission: player.ringMission,
+      sword: player.sword,
+      swordMission: player.swordMission
     }
   };
   
@@ -182,6 +222,8 @@ function loadGameState() {
     player.memoryMission = gameState.playerStats.memoryMission;
     player.ring = gameState.playerStats.ring;
     player.ringMission = gameState.playerStats.ringMission;
+    player.sword = gameState.playerStats.sword;
+    player.swordMission = gameState.playerStats.swordMission;
     // Update the display accordingly
     updatePlayerStats();
     console.log(player);
@@ -270,7 +312,7 @@ const textNodes = [
   },
   {
     id: 4,
-    text: "Nachdem du den Keller durchsucht hast, findest du 5 Goldmünzen. Du siehst eine Tür und hörst Stimmen dahinter. Was willst du tun?",
+    text: "Nachdem du den Keller durchsucht hast, findest du 5 Goldmünzen und einen Hammer. Du siehst eine Tür und hörst Stimmen dahinter. Was willst du tun?",
     options: [
       {
         text: "Stürme lautstart den Raum und fordere die Stimmen heraus",
@@ -281,7 +323,7 @@ const textNodes = [
       },
       {
         text: "Warte bis die Stimmen verschwinden und öffne die Tür leise",
-        nextText: 7,
+        nextText: 37,
       },
     ],
   },
@@ -307,7 +349,7 @@ const textNodes = [
   },
   {
     id: 7,
-    text: "Du kannst dich langsam erinnern, du warst in einer Kneipe und hast dich mit einem alten Mann unterhalten. Er hat dir von einem Schatz in einem Schloss erzählt. Du hast nach dem Kneipen besuch offenbar noch dein Glück versucht und wurdest gefangen genommen. Du bist in einem Schloss.",
+    text: "Nachdem du die Tür aufgebrochen hast kannst du dich langsam erinnern, du warst in einer Kneipe und hast dich mit einem alten Mann unterhalten. Er hat dir von einem Schatz in einem Schloss erzählt. Du hast nach dem Kneipen besuch offenbar noch dein Glück versucht und wurdest gefangen genommen. Du bist in einem Schloss.",
     options: [
       {
         text: "Weiter...",
@@ -388,6 +430,7 @@ const textNodes = [
       },
       {
         text: "Zum mysteriösen Mann in der Ecke gehen, der dir zuwinkt",
+        requiredState: (player) => player.beerMission == false || player.ringMission == false || player.swordMission == false,
         nextText: 15,
       },
       {
@@ -403,7 +446,7 @@ const textNodes = [
       {
         text: "Ab in den Wald",
         requiredState: (player) => 
-        player.strength >= 15 && player.ringMission == false && player.ring == false, 
+        player.strength >= 15 && (player.ring == false || player.sword == false), 
         nextText: 19,
       }
     ],
@@ -450,7 +493,7 @@ const textNodes = [
   },
   {
     id: 15,
-    text: "Der Mann bietet dir für jede Mission 50 Gold an.\n1. Er sagt: Ich brauche ein Bier, aber ich kann nicht selbst gehen. Kannst du mir eins holen?\n 2. Außerdem: Ich habe im Wald meinen Ring verloren. Kannst du ihn mir holen? (Zugang zum Wald benötigt 15 Stärke)",
+    text: "Der Mann bietet dir für jede Mission 50 Gold an.\n1. Er sagt: Ich brauche ein Bier, aber ich kann nicht selbst gehen. Kannst du mir eins holen?\n 2. Außerdem: Ich habe im Wald meinen Ring verloren. Kannst du ihn mir holen? (Zugang zum Wald benötigt 15 Stärke)\n3. Zu guter Letzt: Ich habe mein Schwert im nach dem Wald In einem Feld verloren. Kannst du es mir holen?", 
     options: [
       {
         text: "Zurückgehen",
@@ -458,21 +501,28 @@ const textNodes = [
       },
       {
         text: "Bier geben",
-        requiredState: (player) => player.beer == true,
+        requiredState: (player) => player.beer == true && player.beerMission == false,
         setState: () => {
           player.gold += 50;
-          player.beer = false;
           player.beerMission = true;
         },
         nextText: 13,
       },
       {
         text: "Ring geben",
-        requiredState: (player) => player.ring == true,
+        requiredState: (player) => player.ring == true && player.ringMission == false,
         setState: () => {
           player.gold += 50;
-          player.ring = false;
           player.ringMission = true;
+        },
+        nextText: 13,
+      },
+      {
+        text: "Schwert geben",
+        requiredState: (player) => player.sword == true && player.swordMission == false,
+        setState: () => {
+          player.gold += 50;
+          player.swordMission = true;
         },
         nextText: 13,
       },
@@ -538,14 +588,20 @@ const textNodes = [
   },
   {
     id: 19,
-    text: "Du gehst in den Wald und siehst eine Höhle. Du hörst ein Geräusch. In der Höhle befindet sich ein kleiner Kobold, der auf dich zukommt.",
+    text: "Du gehst in den Wald und siehst eine Höhle. Du hörst ein Geräusch. In der Höhle befindet sich ein kleiner Kobold. Du kannst auch weiter durch den Wald gehen.",
     options: [
       {
         text: "In die Höhle gehen und kämpfen!",
+        requiredState: (player) => player.ring == false && player.ringMission == false,
         setState: () => {
           player.health -= 10;
         },
         nextText: 20,
+      },
+      {
+        text: "Weiter durch den Wald gehen bis zum Feld",
+        requiredState: (player) => player.swordMission == false && player.sword == false,
+        nextText: 34
       },
       {
         text: "Zurück in die Stadt fliehen!",
@@ -588,15 +644,15 @@ const textNodes = [
       },
       {
         text: "10",
-        nextText: 23,
+        nextText: 13,
       },
       {
         text: "15",
-        nextText: 23,
+        nextText: 13,
       },
       {
         text: "25",
-        nextText: 23,
+        nextText: 13,
       }
     ],
   },
@@ -615,20 +671,20 @@ const textNodes = [
     text: "Richtig! Frage 2: Was wollte der mysteriöse Mann in der Stadt von dir?",
     options: [
       {
-        text: "Ein Bier und eine Halskette",
-        nextText: 23,
+        text: "Ein Bier, eine Halskette und ein Schwert",
+        nextText: 13,
       },
       {
-        text: "Ein Bier und ein Armband",
-        nextText: 23,
+        text: "Ein Bier, ein Armband und eine Axt",
+        nextText: 13,
       },
       {
-        text: "Ein Bier und einen Ring",
+        text: "Ein Bier, einen Ring und ein Schwert",
         nextText: 25,
       },
       {
-        text: "Ein Bier und eine Uhr",
-        nextText: 23,
+        text: "Ein Bier, eine Uhr und ein Schwert",
+        nextText: 13,
       }
     ],
   },
@@ -638,11 +694,11 @@ const textNodes = [
     options: [
       {
         text: "Sonic",
-        nextText: 23,
+        nextText: 13,
       },
       {
         text: "Zelda",
-        nextText: 23,
+        nextText: 13,
       },
       {
         text: "Super Mario",
@@ -650,7 +706,7 @@ const textNodes = [
       },
       {
         text: "Grand Theft Auto",
-        nextText: 23,
+        nextText: 13,
       }
     ],
   },
@@ -759,7 +815,39 @@ const textNodes = [
   },
   {
     id: 33,
-    text: "To be continued...",
+    text: "Hier ist eine weitere verschlossene Tür.",
+    options: [
+    ],
+  },
+  {
+    id: 34,
+    text: "Hier ist also das Feld in dem sich das Schwert befinden soll. Du siehst auch Brennessel, diese sind sehr wertvoll. Sammle alle Brennessel und finde das Schwert!",
+    options: [
+      {
+        text: "Zurückgehen",
+        nextText: 19,
+      }
+    ],
+  },
+  {
+    id: 35,
+    text: "Du hast die Tür aufgebrochen!",
+    options: [
+      {
+        text: "To be continued...",
+        nextText: 36,
+      }
+    ],
+  },
+  {
+    id: 36,
+  },
+  {
+    id: 37,
+    text: "Die Stimmen sind verschwunden aber die Tür ist verschlossen.",
+    options: [
+
+    ],
   }
 ];
 
@@ -769,6 +857,21 @@ if (window.location.search.includes('fromMemoryGame=true')) {
   showTextNode(13);
   updatePlayerStats();
   
+} else if (window.location.search.includes('fromSearchGame=true')){
+  loadGameState();
+  showTextNode(13);
+  updatePlayerStats();
+
+} else if (window.location.search.includes('fromDoorGame=true')) {
+  loadGameState();
+  showTextNode(7);
+  updatePlayerStats();
+
+} else if (window.location.search.includes('fromDoorGame2=true')) {
+  loadGameState();
+  showTextNode(35);
+  updatePlayerStats();
+
 } else {
   startGame();
 }
