@@ -95,7 +95,7 @@ function showTextNode(textNodeIndex) {
       player.gold += 60;
       player.memoryMission = true;
       saveGameState(textNode);
-      window.location.href = '../Memory/index.html'; // Der Pfad zur neuen Seite
+      window.location.href = '../sites/memory.html'; // Der Pfad zur neuen Seite
     });
     optionButtonsElement.appendChild(memoryButton);
   }
@@ -106,7 +106,7 @@ function showTextNode(textNodeIndex) {
     searchGameButton.addEventListener("click", () => {
       player.sword = true;
       saveGameState(textNode);
-      window.location.href = '../Suchbild/index.html';
+      window.location.href = '../sites/suchbild.html';
     });
     optionButtonsElement.appendChild(searchGameButton);
   }
@@ -117,7 +117,7 @@ function showTextNode(textNodeIndex) {
     doorButton.classList.add("btn");
     doorButton.addEventListener("click", () => {
       saveGameState(textNode);
-      window.location.href = '../Door1/index.html';
+      window.location.href = '../sites/door.html';
     });
     optionButtonsElement.appendChild(doorButton);
   }
@@ -127,7 +127,7 @@ function showTextNode(textNodeIndex) {
     doorButton.classList.add("btn");
     doorButton.addEventListener("click", () => {
       saveGameState(textNode);
-      window.location.href = '../Door2/index.html';
+      window.location.href = '../sites/door2.html';
     });
     optionButtonsElement.appendChild(doorButton);
   }
@@ -690,22 +690,22 @@ const textNodes = [
   },
   {
     id: 25,
-    text: "Auch richtig! Frage 3: Von welchem Videospiel waren die Bilder im Memory?",
+    text: "Auch richtig! Frage 3: Welche Art von Karten waren es im Memory Spiel?",
     options: [
       {
-        text: "Sonic",
+        text: "Rot Herz ♥",
         nextText: 13,
       },
       {
-        text: "Zelda",
+        text: "Schwarz Pik ♠",
         nextText: 13,
       },
       {
-        text: "Super Mario",
+        text: "Rot Karo ♦",
         nextText: 26,
       },
       {
-        text: "Grand Theft Auto",
+        text: "Schwarz Kreuz ♣",
         nextText: 13,
       }
     ],
