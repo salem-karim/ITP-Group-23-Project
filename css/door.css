@@ -1,9 +1,9 @@
 .clicking2 {
-    cursor: url('../images/door/hammer1.png'), auto;
+    cursor: url('../icons/hammer.png'), auto;
 }
 
 .clicking {
-    cursor: url('../images/door/hammer2.png'), auto; /* Path to the cursor image for the 'clicking' state */
+    cursor: url('../icons/hammer2.png'), auto; /* Path to the cursor image for the 'clicking' state */
 }
 
 body, html {

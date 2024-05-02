@@ -1,31 +1,36 @@
 body {
 background-image: url(../images/Memory/MemoryBackground.jpeg);
 background-size: cover;
+padding: 0;
+margin: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+width: 100vw;
+height: 100vh;
 }
 
 .labels {
-  font-variant: small-caps;
-  color: rgb(129, 126, 126);
-  text-shadow: 2px 2px #131313;
+  color: rgb(0, 0, 0);
   font-size: 20px;
   float: left;
 }
 
 .infobox,
 #spielbereich {
-  border: 10px solid transparent;
+  border-radius: 10px;
+  border: 10px;
   background-color: #ffffff;
-  padding: 10px;
-  border-image: linear-gradient(rgb(129, 126, 126), rgb(10, 10, 10)) 1;
-  outline: 1px solid black;
-  margin-top: 30px;
-  margin-left: 10px;
+  padding: 20px;
+  border-image: linear-gradient(rgb(255, 255, 255), rgb(221, 84, 70)) 1;
+  margin-top: 60px;
+  margin-left: 20px;
   float: left;
 }
 
 .karte {
-  height: 66px;
-  width: 66px;
+  height: 64px;
+  width: 64px;
   background-image: url(../images/Memory/memoryBg.png);
   float: left;
   margin: 2px;
