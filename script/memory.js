@@ -1,4 +1,3 @@
-var input = alert("Du hast 2 Minuten Zeit um das Memory zu lösen. Viel Spaß!");
 var seconds = 1;
 var tries = 0;
 var prevoiusCardId = 0;
@@ -7,9 +6,26 @@ createCards();
 var flippedCards = 0;
 var matchedCardIds = [];
 var success = 0;
+let time = 1000;
+
+$(document).ready(function() {
+  bootstrap_alert.load('Du hast 120 Sekunden Zeit um das Memory Spiel zu gewinnen!');
+});
+
+bootstrap_alert = function() {}
+bootstrap_alert.load = function(message) {
+    $('#alert_placeholder').html('<div class="alert alert-light"><span>'+message+'</span></div>')
+}
+bootstrap_alert.win = function(message) {
+    $('#alert_placeholder').html('<div class="alert alert-light"><span>'+message+'</span></div>')
+}
+bootstrap_alert.loss = function(message) {
+  $('#alert_placeholder').html('<div class="alert alert-light"><span>'+message+'</span></div>')
+}
 
 
-var counter = setInterval(countTimer, 1000); // set the counter
+
+var counter = setInterval(countTimer, time); // set the counter
 
 function countTimer() {
   seconds++;
@@ -150,10 +166,15 @@ function resetFlippedCards() {
 
 function youWon(){
   if (seconds < 120){
-  alert("Herzlichen Glückwunsch! Du hast das Memory in " + tries + " Versuchen und " + seconds + " Sekunden gelöst! Du erhälst 60 Gold!");
-  window.location.href = '../sites/game.html?fromMemoryGame=true';
+    bootstrap_alert.win('Glückwunsch! Du hast das Memory Spiel in ' + tries + ' Versuchen und ' + seconds + ' Sekunden gewonnen!');
+    setTimeout(function() {
+      window.location.href = '../sites/game.html?fromMemoryGame=true';
+    }, 5000);
   } else {
-    alert("Du warst etwas zu Langsam! Noch einmal versuchen?");
-    window.location.reload();
+    bootstrap_alert.loss('Du warst etwas zu Langsam!');
+    setTimeout(function() {
+      window.location.reload();
+    }, 5000);
+  }
 }
-}
+

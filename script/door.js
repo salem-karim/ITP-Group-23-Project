@@ -1,5 +1,10 @@
 var numberOfHits = 0;
 
+bootstrap_alert = function() {}
+bootstrap_alert.warning = function(message) {
+    $('#alert_placeholder').html('<div class="alert alert-light"><span>'+message+'</span></div>')
+}
+
 function damage(event) {
     numberOfHits++;
     event.currentTarget.classList.add('clicking'); // Use event.currentTarget to refer to the div
@@ -16,8 +21,10 @@ function damage(event) {
                     if (numberOfHits >= 10) {
                         $("#1").attr("src", "../images/Door/doorMine5.png");
                         console.log("success");
-                        alert("Tür erfolgreich aufgebrochen !");
-                        window.location.href = '../sites/game.html?fromDoorGame=true';
+                        bootstrap_alert.warning('Tür erfolgreich aufgebrochen!')
+                        setTimeout(function() {
+                            window.location.href = '../sites/game.html?fromDoorGame=true';
+                        }, 3000);
                     }
                 }
             }

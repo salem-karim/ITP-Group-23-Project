@@ -11,33 +11,45 @@ function unhighlight(element) {
     $(element).removeClass("bright");
 }
 
+bootstrap_alert = function() {}
+bootstrap_alert.found = function(message) {
+    $('#alert_placeholder').html('<div class="alert alert-light"><span>'+message+" Brenneseln: "+goalCounter+" Extras: "+specialCounter+'</span></div>')
+}
+bootstrap_alert.warning = function(message) {
+    $('#alert_placeholder').html('<div class="alert alert-light"><span>'+message+'</span></div>')
+}
+
 function logic(element) {
     console.log("test");
     var temp = $(element).attr("src");
-    if (temp == "../images/suchbild/brennesel.png") {
+    if (temp == "../icons/brenn.png") {
         goalCounter++;
-        window.alert("Glückwunsch. Du hast eine Brenneseln gefunden.");
+        bootstrap_alert.found('Du hast eine Brennesel gefunden!');
     }
-    else if (temp == "../images/suchbild/basilikum.png") {
-        window.alert("Das ist Basilikum und keine Brennesel. Bitte halte dein Ziel vor Auge und denk nicht schon wieder an Pizza!");
+    else if (temp == "../icons/basil.png") {
+        bootstrap_alert.found('Das ist Basilikum und keine Brennesel. Bitte halte dein Ziel vor Auge und denk nicht schon wieder an Pizza!');
     }
-    else if (temp == "../images/suchbild/schwert.png") {
-        window.alert("Glückwunsch, du hast das Schwert gefunden!");
+    else if (temp == "../icons/sword.png") {
         specialCounter ++;
+        bootstrap_alert.found('Glückwunsch, du hast das Schwert gefunden!');
     }
-    else if (temp == "../images/suchbild/pilz.png") {
+    else if (temp == "../icons/shrooms.png") {
         ++poisionCounter;
         if (poisionCounter < 2)
-            window.alert("Du hast einen giftigen Pilz berührt!");
+            bootstrap_alert.warning('Du hast einen giftigen Pilz berührt!');
         else{
-            window.alert("Du hast zu viele giftige Pilze berührt und bist gestorben.  Probier es nochmal!");
+            bootstrap_alert.warning('Du hast zu viele giftige Pilze berührt und bist gestorben.  Probier es nochmal!');
+            setTimeout(function() {
             //hier die Seite neu laden
             location.reload();
+            }, 3000);
         }
     }
     if (goalCounter === 5 && specialCounter === 1) {
-        window.alert("Alles gefunden.");
-        window.location.href = '../sites/game.html?fromSearchGame=true';
+        bootstrap_alert.warning('Alles gefunden!')
+        setTimeout(function() {
+            window.location.href = '../sites/game.html?fromSearchGame=true';
+        }, 3000);
     }
     $(element).remove();
 }

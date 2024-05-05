@@ -1,8 +1,10 @@
 * {
-cursor: url('../icons/magnif.png'), auto;
+cursor: url('../icons/mag.png'), auto;
 }
 
 body, html {
+	background-image: url(../images/Suchbild/wiese.png);
+	background-size: cover;
 	height: 100%;
 	margin: 0;
 }
