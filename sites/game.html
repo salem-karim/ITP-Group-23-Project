@@ -1,36 +1,35 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="../css/game.css" />
+    <link rel="icon" type="image/x-icon" href="../icons/knight.png" />
+    <script type="module" defer src="../script/game.js"></script>
+    <title>QuestVerse: Text Adventures</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <link rel="stylesheet" href="../css/game.css" />
-  <link rel="icon" type="image/x-icon" href="../icons/knight.png" />
-  <script defer src="../script/game.js"></script>
-  <title>QuestVerse: Text Adventures</title>
-</head>
-
-
-<body>
-  
-  <div class="container">
-    <div id="text">Text</div>
-    <div id="option-buttons" class="btn-grid">
-      <button type="button" class="btn btn-outline-secondary">Option 1</button>
-      <button type="button" class="btn btn-outline-light">Option 2</button>
-      <button type="button" class="btn btn-outline-light">Option 3</button>
-      <button type="button" class="btn btn-outline-light">Option 4</button>
-      <h1>test</h1>
+  <body>
+    <div class="container">
+      <div id="text">Text</div>
+      <div id="option-buttons" class="btn-grid">
+        <button type="button" class="btn btn-outline-secondary">
+          Option 1
+        </button>
+        <button type="button" class="btn btn-outline-light">Option 2</button>
+        <button type="button" class="btn btn-outline-light">Option 3</button>
+        <button type="button" class="btn btn-outline-light">Option 4</button>
+        <h1>test</h1>
+      </div>
+      <div id="player-stats">
+        Gold: <span id="gold">0</span> | Gesundheit:
+        <span id="health">100</span> | Stärke: <span id="strength">10</span>
+        <br />
+        Klasse: <span id="class">-</span> | Waffe: <span id="weapon">-</span> |
+        Schild:
+        <span id="shield">-</span>
+      </div>
     </div>
-    <div id="player-stats">
-      Gold: <span id="gold">0</span> | Gesundheit:
-      <span id="health">100</span> | Stärke: <span id="strength">10</span>
-      <br />
-      Klasse: <span id="class">-</span> | Waffe: <span id="weapon">-</span> |
-      Schild:
-      <span id="shield">-</span>
-    </div>
-  </div>
-</body>
+  </body>
 </html>
