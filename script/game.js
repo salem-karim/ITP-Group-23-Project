@@ -125,6 +125,27 @@ function showTextNode(textNodeIndex) {
         });
         optionButtonsElement.appendChild(doorButton);
     }
+    if (textNodeIndex === 36) {
+        const doorButton = document.createElement("button");
+        doorButton.innerText = "Spiel beginnen";
+        doorButton.classList.add("btn");
+        doorButton.addEventListener("click", () => {
+            saveGameState(textNodeIndex);
+            window.location.href = "../sites/SchereSteinPapier.html";
+        });
+        optionButtonsElement.appendChild(doorButton);
+    }
+
+    if (textNodeIndex === 38) {
+        const doorButton = document.createElement("button");
+        doorButton.innerText = "Zurück ins Hauptmenü";
+        doorButton.classList.add("btn");
+        doorButton.addEventListener("click", () => {
+            
+            window.location.href = "../index.html";
+        });
+        optionButtonsElement.appendChild(doorButton);
+    }
     console.log(textNodeIndex);
 }
 function showOption(option) {
@@ -216,6 +237,12 @@ else if (window.location.search.includes("fromDoorGame2=true")) {
     loadGameState();
     showTextNode(35);
     updatePlayerStats();
+}
+else if (window.location.search.includes("fromSSP=true")) {
+    loadGameState();
+    showTextNode(38);
+    updatePlayerStats();
+
 }
 else {
     startGame(textNodeIndex);

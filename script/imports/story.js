@@ -244,7 +244,8 @@ export const textNodes = [
             },
             {
                 text: "Ein Fortgeschrittenenschwert kaufen (100 Gold)",
-                requiredState: (player) => player.stats["gold"] >= 100,
+                requiredState: (player) => player.stats["gold"] >= 100 &&
+                    player.equipment[0] != "Fortgeschrittenenschwert",
                 setState: (player) => {
                     player.stats["gold"] -= 100;
                     player.equipment[0] = "Fortgeschrittenenschwert";
@@ -605,16 +606,17 @@ export const textNodes = [
     },
     {
         id: 35,
-        text: "Du hast die Tür aufgebrochen!",
+        text: "Du hast die Tür aufgebrochen! Du befindest dich jetzt im Köngissaal. Du siehst den König auf seinem Thron sitzen. Er sieht dich und fragt was du hier zu suchen hast.",
         options: [
             {
-                text: "To be continued...",
+                text: "Ich suche den geheimen Schatz, der sich im Schloss befinden soll!",
                 nextText: 36,
             },
         ],
     },
     {
         id: 36,
+        text: "Du bist nicht der erste, der den Schatz sucht. Du bekommst den Schatz wenn du mich in einem ehrenhaften Duell in Schere, Stein, Papier besiegst. Du musst 3 mal gegen mich gewinnen!",
         options: [],
     },
     {
@@ -622,4 +624,14 @@ export const textNodes = [
         text: "Die Stimmen sind verschwunden aber die Tür ist verschlossen.",
         options: [],
     },
+    {
+        id: 38,
+        text: "Du bist der erste der mich besiegen konnte! Hier ist dein Schatz! Du hast gewonnen!\n\nDanke fürs Spielen, probier auch unsere anderen Storys aus!",
+        options: [
+            {
+                text: "Spiel von neu starten",
+                nextText: -1,
+            },
+        ],
+    }
 ];
