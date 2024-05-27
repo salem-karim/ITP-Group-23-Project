@@ -1,3 +1,14 @@
+bootstrap_alert = function() {}
+bootstrap_alert.win = function(message) {
+    $('#alert_placeholder').html('<div class="alert alert-light"><span>'+message+'</span></div>')
+}
+bootstrap_alert.load = function(message) {
+  $('#alert_placeholder').html('<div class="alert alert-light"><span>'+message+'</span></div>')
+}
+$(document).ready(function() {
+  bootstrap_alert.load('Gewinne 3 Runden um das Spiel zu gewinnen!');
+  console.log('loaded');
+});
 // Get  to DOM elements
 
 const gameContainer = document.querySelector(".container"),
@@ -69,10 +80,10 @@ optionImages.forEach((image, index) => {
       if (outComeValue === "Du gewinnst") {
         userScore.textContent = parseInt(userScore.textContent) + 1;
         if (parseInt(userScore.textContent) == 3) {
-     
+          bootstrap_alert.win('Du hast gewonnen!');
 
           setTimeout(function() {
-            window.location.href = '../sites/game.html?fromSSP=true';
+            window.location.href = '../index.html';
           }, 3000);
         }
       }
