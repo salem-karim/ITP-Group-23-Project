@@ -633,5 +633,5 @@ export const textNodes = [
                 nextText: -1,
             },
         ],
-    }
+    },
 ];
