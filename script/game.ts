@@ -30,14 +30,7 @@ var missions: missions = {
 
 var equipment: string[] = ["-", "-"];
 
-var player: Player = new Player(
-  name,
-  "-",
-  stats,
-  equipment,
-  inventory,
-  missions,
-);
+var player: Player = new Player(name, stats, equipment, inventory, missions);
 
 let textElement = document.getElementById("text")!;
 let optionButtonsElement = document.getElementById("option-buttons")!;
@@ -46,11 +39,10 @@ let healthElement = document.getElementById("health")!;
 let strengthElement = document.getElementById("strength")!;
 let weaponElement = document.getElementById("weapon")!;
 let shieldElement = document.getElementById("shield")!;
-let classElement = document.getElementById("class")!;
 //Delcare empty state
 let state = {};
 const story = textNodes;
-var textNodeIndex = 2;
+let NodeIndex = 1;
 
 function startGame(Index: number) {
   //Show the text, options and update the player stats
@@ -63,7 +55,6 @@ function updatePlayerStats() {
   goldElement.textContent = player.stats["gold"].toString();
   healthElement.textContent = player.stats["health"].toString();
   strengthElement.textContent = player.stats["strength"].toString();
-  classElement.textContent = player.type;
   weaponElement.textContent = player.equipment[0];
   shieldElement.textContent = player.equipment[1];
 }
@@ -76,7 +67,6 @@ function resetPlayer() {
   player.equipment[1] = "-";
   player.inventory["beer"] = false;
   player.missions["beerMission"] = false;
-  player.type = "-";
   player.missions["memoryMission"] = false;
   player.inventory["ring"] = false;
   player.missions["ringMission"] = false;
@@ -106,7 +96,7 @@ function showTextNode(textNodeIndex: number) {
       optionButtonsElement.appendChild(button);
     }
   });
-  if (textNodeIndex === 18) {
+  if (textNodeIndex === 15) {
     const memoryButton = document.createElement("button");
     memoryButton.innerText = "Memory spielen";
     memoryButton.classList.add("btn");
@@ -118,7 +108,7 @@ function showTextNode(textNodeIndex: number) {
     });
     optionButtonsElement.appendChild(memoryButton);
   }
-  if (textNodeIndex === 34) {
+  if (textNodeIndex === 30) {
     const searchGameButton = document.createElement("button");
     searchGameButton.innerText = "Das Feld genauer untersuchen";
     searchGameButton.classList.add("btn");
@@ -130,7 +120,7 @@ function showTextNode(textNodeIndex: number) {
     optionButtonsElement.appendChild(searchGameButton);
   }
 
-  if (textNodeIndex === 37) {
+  if (textNodeIndex === 33) {
     const doorButton = document.createElement("button");
     doorButton.innerText = "Die Tür aufbrechen";
     doorButton.classList.add("btn");
@@ -140,7 +130,7 @@ function showTextNode(textNodeIndex: number) {
     });
     optionButtonsElement.appendChild(doorButton);
   }
-  if (textNodeIndex === 33) {
+  if (textNodeIndex === 29) {
     const doorButton = document.createElement("button");
     doorButton.innerText = "Die Tür aufbrechen";
     doorButton.classList.add("btn");
@@ -150,7 +140,7 @@ function showTextNode(textNodeIndex: number) {
     });
     optionButtonsElement.appendChild(doorButton);
   }
-  if (textNodeIndex === 36) {
+  if (textNodeIndex === 32) {
     const doorButton = document.createElement("button");
     doorButton.innerText = "Spiel beginnen";
     doorButton.classList.add("btn");
@@ -161,7 +151,7 @@ function showTextNode(textNodeIndex: number) {
     optionButtonsElement.appendChild(doorButton);
   }
 
-  if (textNodeIndex === 38) {
+  if (textNodeIndex === 34) {
     const doorButton = document.createElement("button");
     doorButton.innerText = "Zurück ins Hauptmenü";
     doorButton.classList.add("btn");
@@ -183,7 +173,7 @@ function selectOption(option: any) {
   const nextTextNodeId = option.nextText;
   if (nextTextNodeId <= 0) {
     resetPlayer();
-    return startGame(textNodeIndex);
+    return startGame(1);
   }
   if (option.setState) {
     option.setState(player); // Update player stats
@@ -207,7 +197,6 @@ function saveGameState(textNodeIndex: number) {
       gold: player.stats["gold"],
       health: player.stats["health"],
       strength: player.stats["strength"],
-      class: player.type,
       weapon: player.equipment[0],
       shield: player.equipment[1],
       beer: player.inventory["beer"],
@@ -228,13 +217,12 @@ function loadGameState() {
   if (savedGameState) {
     const gameState: GameState = JSON.parse(savedGameState);
     // Set the text node to the saved index
-    textNodeIndex = gameState.textNodeIndex;
+    NodeIndex = gameState.textNodeIndex;
     // Set the player stats to the loaded values
 
     player.stats["gold"] = gameState.playerStats.gold;
     player.stats["health"] = gameState.playerStats.health;
     player.stats["strength"] = gameState.playerStats.strength;
-    player.type = gameState.playerStats.class;
     player.equipment[0] = gameState.playerStats.weapon;
     player.equipment[1] = gameState.playerStats.shield;
     player.inventory["beer"] = gameState.playerStats.beer;
@@ -252,24 +240,24 @@ function loadGameState() {
 
 if (window.location.search.includes("fromMemoryGame=true")) {
   loadGameState();
-  showTextNode(13);
+  showTextNode(10);
   updatePlayerStats();
 } else if (window.location.search.includes("fromSearchGame=true")) {
   loadGameState();
-  showTextNode(13);
+  showTextNode(10);
   updatePlayerStats();
 } else if (window.location.search.includes("fromDoorGame=true")) {
   loadGameState();
-  showTextNode(7);
+  showTextNode(5);
   updatePlayerStats();
 } else if (window.location.search.includes("fromDoorGame2=true")) {
   loadGameState();
-  showTextNode(35);
+  showTextNode(31);
   updatePlayerStats();
 } else if (window.location.search.includes("fromSSP=true")) {
   loadGameState();
-  showTextNode(38);
+  showTextNode(34);
   updatePlayerStats();
 } else {
-  startGame(textNodeIndex);
+  startGame(NodeIndex);
 }

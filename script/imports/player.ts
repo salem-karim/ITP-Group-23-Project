@@ -10,7 +10,6 @@ interface stats {
 
 class Player {
   name: string;
-  type: string;
   stats: stats;
   equipment: string[];
   inventory: inventory;
@@ -18,14 +17,12 @@ class Player {
 
   constructor(
     name: string,
-    type: string,
     stats: stats,
     equipment: string[],
     inventory: inventory,
     missions: missions,
   ) {
     this.name = name;
-    this.type = type;
     this.stats = stats;
     this.equipment = equipment;
     this.inventory = inventory;

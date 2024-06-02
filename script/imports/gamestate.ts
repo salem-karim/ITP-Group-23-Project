@@ -4,7 +4,6 @@ export interface GameState {
     gold: number;
     health: number;
     strength: number;
-    class: string;
     weapon: string;
     shield: string;
     beer: boolean;
