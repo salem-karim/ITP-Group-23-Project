@@ -13,7 +13,7 @@ interface TextNode {
   options: Option[];
 }
 
-export const textNodes: TextNode[] = [
+export const textNodes2: TextNode[] = [
   {
     id: 1,
     text: "Du wachst ohne Erinnerung in einem Keller auf und suchst nach hinweisen, was passiert ist.\nDu bemerkst dass dein rechter Arm Schmerzt und Blut verliert. Du brauchst unbdedingt Medizin.\nDu findest auf einem Holzbrett eine Notiz",
@@ -292,7 +292,7 @@ export const textNodes: TextNode[] = [
   },
   {
     id: 16,
-    text: "Unten findest du: 2 Flaschen (1. H2O2 und 2. H2O), einen wietern Teil der Notiz, eine Axt un 3 Goldstücke.",
+    text: "Du bemerkst das du in einem Dachboden warst.\nUnten findest du: 2 Flaschen (1. H2O2 und 2. H2O), einen wietern Teil der Notiz, eine Axt un 3 Goldstücke.",
     options: [
       {
         text: "H2O trinken und den Rest einstecken",
@@ -336,9 +336,229 @@ export const textNodes: TextNode[] = [
     ],
   },
   {
+    id: 19,
+    text: "Du bist an der Burg angekommen, du siehst einen Graben rund um die Pechschwarze Burg,\nder mit Wasser befüllt ist und vin Alligatoren bewacht wird.\nDie Brücke, welche zum Haupttor führt wird von 3 Riesen bewacht. was tun?",
+    options: [
+      {
+        text: "Die Flasche H2O2 aus dem Rucksack nehmen und Trinken, um Kraft zu tanken",
+        setState: (player: Player) => {
+          player.stats["health"] = 0;
+        },
+        nextText: 17,
+      },
+      {
+        text: "In den Graben springen und mit der Axt die Alligatoren bekämpfen",
+        setState: (player: Player) => {
+          player.stats["health"] = 0;
+        },
+        nextText: 20,
+      },
+      {
+        text: "Die Wächter höflich um Einlass bitten",
+        setState: (player: Player) => {
+          player.stats["health"] = 0;
+        },
+        nextText: 22,
+      },
+      {
+        text: "nach einem anderen Eingang suchen",
+        setState: (player: Player) => {
+          player.stats["gold"] += 7;
+          player.inventory["Haifischzahn"] = true;
+        },
+        nextText: 21,
+      },
+    ],
+  },
+  {
+    id: 20,
+    text: "Merkst du selber, die Alligatoren sind zu stark und du stirbst",
+    options: [
+      {
+        text: "Restart",
+        nextText: -1,
+      },
+    ],
+  },
+  {
+    id: 21,
+    text: "Bei der Suche findest du eine Kiste mit 7 Goldstücken und einem Haifischzahn.\n Du steckst Gegenstände ein. Dabei wirst du von einem Zwerg erwischt.\n Er bittet dich um Hilfe: Der Zwerg erzählt, dass er nicht bei Next Zwergenmodel mitmachen könnte weil er zu dunkle Haare hat.\n „Wenn du mir nicht hilfst, um bei Next Zwergenmodel mitzumachen, verrate ich dem Wächter, dass du Gold stiehlst“, sagt er. Was machst du?",
+    options: [
+      {
+        text: "Die Flasche H2O2 auf den Kopf des Zwergen schütten",
+        nextText: 23,
+      },
+      {
+        text: "Dem Zwerg gegen das Schienbein treten und weglaufen",
+        nextText: 22,
+      },
+    ],
+  },
+  {
+    id: 22,
+    text: "Der Wächter sieht dich und wirft dich zurück in den Keller",
+    options: [
+      {
+        text: "Restart",
+        nextText: -1,
+      },
+    ],
+  },
+  {
+    id: 23,
+    text: "Das H2O2 bleicht die Haare des Zwerges und er erstrahlt in einem wunderschönen Blond.\nVoller Freude gibt er dir Medizin (endlich kannst du wieder scharf sehen) und ein Seil. Er meint, dass man damit am leichtesten in die Burg gelangt.",
+    options: [
+      {
+        text: "Weiter...",
+        nextText: 24,
+      },
+    ],
+  },
+  {
+    id: 24,
+    text: "Du bist nun endlich verarztet und kannst dich auf den Weg ins gemütliche Bettchen machen.\nBeim nach Hause gehen findest du einen Zettel auf dem Boden.\nDu hebst ihn auf und merkst, dass es sich um den fehlenden Teil der Notiz vom Dachboden handelt.",
+    options: [
+      {
+        text: "Weiter...",
+        nextText: 25,
+      },
+      {
+        text: "Notiz ansehen",
+        nextText: 50,
+      },
+    ],
+  },
+  {
+    id: 25,
+    text: "Finde einen Weg in die Burg",
+    options: [
+      {
+        text: "Mit dem Seil des Zwerges durch eine Dachluke Klettern",
+        nextText: 26,
+      },
+      {
+        text: "mit der Axt einen Baum fällen und daraus einen Stabhochsprungstab Schnitzen um über die 17 Meter hohen Wände zu Springen",
+        nextText: 22,
+      },
+      {
+        text: "Mit der Axt den Haupteingang aufbrechen",
+        nextText: 22,
+      },
+      {
+        text: "Durch das Wasser des Burggrabens schwimmen",
+        nextText: 20,
+      },
+    ],
+  },
+  {
+    id: 26,
+    text: "Vor dir ist ein Haufen Goldstücke und weit und breit keine Bewacher. Was machst du? Denk daran, dass jedes Goldstück im Rucksack die Flucht erschwert",
+    options: [
+      {
+        text: "Du nimmst genau 35 Goldstücke",
+        setState: (player: Player) => {
+          player.stats["gold"] += 35;
+        },
+        nextText: 27,
+      },
+      {
+        text: "Du nimmst genau 100 Goldstücke",
+        setState: (player: Player) => {
+          player.stats["gold"] += 100;
+        },
+        nextText: 28,
+      },
+      {
+        text: "Du nimmst den ganzen Haufen mit",
+        setState: (player: Player) => {
+          player.stats["gold"] += 250;
+        },
+        nextText: 28,
+      },
+      {
+        text: "Du nimmst genau 1 Goldstücke",
+        setState: (player: Player) => {
+          player.stats["gold"] += 1;
+        },
+        nextText: 30,
+      },
+    ],
+  },
+  {
+    id: 27,
+    text: "Du hast 35 Goldstücke genommen und bist entkommen, was nun?",
+    options: [
+      {
+        text: "Das Gold zum Vermieter deines Besten Freundes bringen",
+        nextText: 34,
+      },
+      {
+        text: "Mit dem Gold abhauen und bezahle für deinen Urlaub",
+        nextText: 31,
+      },
+    ],
+  },
+  {
+    id: 28,
+    text: "Du hast zu viel Gold genommen und dir ist Gold aus der Tasche gefallen, ein Wächter hat dich gesehen und umgebracht",
+    options: [
+      {
+        text: "Restart",
+        nextText: -1,
+      },
+    ],
+  },
+  {
+    id: 29,
+    text: "Dummy",
+    options: [
+      {
+        text: "Spiel von neu starten",
+        nextText: -1,
+      },
+    ],
+  },
+  {
+    id: 30,
+    text: "Du hast 1 Goldstück genommen und bist entkommen, was nun?",
+    options: [
+      {
+        text: "Das Gold zum Vermieter deines Besten Freundes bringen",
+        nextText: 32,
+      },
+    ],
+  },
+
+  {
+    id: 31,
+    text: "Du hast das Land geflohen und chillst jetzt am Strand!\n\nDanke fürs Spielen, probier auch unsere anderen Storys aus!",
+    options: [
+      {
+        text: "Spiel von neu starten",
+        nextText: -1,
+      },
+    ],
+  },
+  {
+    id: 32,
+    text: "Du hast das Gold zum Vermieter deines Besten Freundes gebracht, er lacht dich aus\nEr sagt aber wenn du ihn in Schere Stein Papier besiegen könntest befreit er deinen Freund",
+    options: [],
+    // Schere, Stein, Papier
+  },
+  {
     id: 33,
     text: "Die Tür aufbrechen.",
     options: [],
     // Tür aufbrechen
+  },
+  {
+    id: 34,
+    text: "Der Vermieter deines Besten Freundes befreit deinen Freund!\n\nDanke fürs Spielen, probier auch unsere anderen Storys aus!",
+    options: [
+      {
+        text: "Spiel von neu starten",
+        nextText: -1,
+      },
+    ],
   },
 ];

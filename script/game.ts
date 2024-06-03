@@ -4,8 +4,15 @@ import {
   inventory,
   missions,
 } from "../script/imports/player.js";
+let whichStory = 1;
 import { textNodes } from "../script/imports/story.js";
-import { GameState } from "../script/imports/gamestate.js";
+import { textNodes2 } from "../script/imports/story2.js";
+
+if (whichStory == 1) {
+  var story = textNodes;
+} else {
+  var story = textNodes2;
+}
 
 var name: string = "Player"; // should propmt Player to enter name
 
@@ -21,13 +28,19 @@ var inventory: inventory = {
   sword: false,
 };
 
-var missions: missions = {
-  beerMission: false,
-  memoryMission: false,
-  ringMission: false,
-  swordMission: false,
-};
-
+if (whichStory == 1) {
+  var missions: missions = {
+    beerMission: false,
+    memoryMission: false,
+    ringMission: false,
+    swordMission: false,
+  };
+} else {
+  var missions: missions = {
+    tuchMission: false,
+    doorMission: false,
+  };
+}
 var equipment: string[] = ["-", "-"];
 
 var player: Player = new Player(name, stats, equipment, inventory, missions);
@@ -41,7 +54,6 @@ let weaponElement = document.getElementById("weapon")!;
 let shieldElement = document.getElementById("shield")!;
 //Delcare empty state
 let state = {};
-const story = textNodes;
 let NodeIndex = 1;
 
 function startGame(Index: number) {
@@ -65,13 +77,12 @@ function resetPlayer() {
   player.stats["gold"] = 0;
   player.equipment[0] = "-";
   player.equipment[1] = "-";
-  player.inventory["beer"] = false;
-  player.missions["beerMission"] = false;
-  player.missions["memoryMission"] = false;
-  player.inventory["ring"] = false;
-  player.missions["ringMission"] = false;
-  player.inventory["sword"] = false;
-  player.missions["swordMission"] = false;
+  player.missions.forEach((mission: any) => {
+    mission = false;
+  });
+  player.inventory.forEach((item: any) => {
+    item = false;
+  });
   updatePlayerStats();
 }
 
@@ -191,7 +202,7 @@ function debugLogs() {
 }
 
 function saveGameState(textNodeIndex: number) {
-  const gameState: GameState = {
+  const gameState = {
     textNodeIndex: textNodeIndex,
     playerStats: {
       gold: player.stats["gold"],
@@ -215,7 +226,7 @@ function saveGameState(textNodeIndex: number) {
 function loadGameState() {
   const savedGameState = localStorage.getItem("gameState");
   if (savedGameState) {
-    const gameState: GameState = JSON.parse(savedGameState);
+    const gameState = JSON.parse(savedGameState);
     // Set the text node to the saved index
     NodeIndex = gameState.textNodeIndex;
     // Set the player stats to the loaded values
