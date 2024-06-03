@@ -1,0 +1,34 @@
+body {
+  background-image: url(../images/Memory2/MemoryBackground.jpeg);
+  background-size: cover;
+}
+
+.labels {
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+  float: left;
+}
+
+.infobox,
+#spielbereich {
+  border-radius: 10px;
+  border: 10px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-image: linear-gradient(rgb(255, 255, 255), rgb(221, 84, 70)) 1;
+  margin-top: 60px;
+  margin-left: 20px;
+  float: left;
+}
+
+.karte {
+  height: 64px;
+  width: 64px;
+  background-image: url(../images/Memory2/memoryBg.png);
+  float: left;
+  margin: 2px;
+}
+
+#spielbereich {
+  overflow: auto;
+}

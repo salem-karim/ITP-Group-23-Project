@@ -16,7 +16,7 @@ interface TextNode {
 export const textNodes2: TextNode[] = [
   {
     id: 1,
-    text: "Du wachst ohne Erinnerung in einem Keller auf und suchst nach hinweisen, was passiert ist.\nDu bemerkst dass dein rechter Arm Schmerzt und Blut verliert. Du brauchst unbdedingt Medizin.\nDu findest auf einem Holzbrett eine Notiz",
+    text: "Du wachst ohne Erinnerung in einem Keller auf und suchst nach hinweisen, was passiert ist.Du bemerkst dass dein rechter Arm Schmerzt und Blut verliert. Du brauchst unbdedingt Medizin.Du findest auf einem Holzbrett eine Notiz",
     options: [
       {
         text: "Dich weiter umsehen",
@@ -24,10 +24,6 @@ export const textNodes2: TextNode[] = [
           player.stats["health"] -= 10;
         },
         nextText: 2,
-      },
-      {
-        text: "Notiz lesen",
-        nextText: 50,
       },
     ],
   },
@@ -41,10 +37,12 @@ export const textNodes2: TextNode[] = [
       },
       {
         text: "Mithilfe einer Hebelwirkung die Tür aufbrechen",
+        requiredState: (player: Player) => !player.missions["memoryMission"],
         setState: (player: Player) => {
           if (!player.missions["tuchMission"]) {
             player.stats["health"] -= 20;
           }
+          player.missions["memoryMission"] = true;
         },
         // tür also next ist 5
         nextText: 33,
@@ -73,7 +71,7 @@ export const textNodes2: TextNode[] = [
   },
   {
     id: 4,
-    text: "Du findest am staubigen Boden eine Klapptür und ein zerrissenes Kleidungsstück. In diesem war ein gelbes Seidentuch eingewickelt.\nEs fällt dir plötlzlich ein, dass es sich un das Tuch der jageneden Drachenfängerin handelt.\nEs ist eine Skizze einer Burg, in der es zahlreiche Rohstoffe gäbe.\nDu brauchst dringend ein Heilmittel gegen die Wunde an deinem rechten Arm.",
+    text: "Du findest am staubigen Boden eine Klapptür und ein zerrissenes Kleidungsstück. In diesem war ein gelbes Seidentuch eingewickelt.Es fällt dir plötlzlich ein, dass es sich un das Tuch der jageneden Drachenfängerin handelt.Es ist eine Skizze einer Burg, in der es zahlreiche Rohstoffe gäbe.Du brauchst dringend ein Heilmittel gegen die Wunde an deinem rechten Arm.",
     options: [
       {
         text: "Deinen Arm mit dem Kleidungsstück verbinden",
@@ -86,7 +84,7 @@ export const textNodes2: TextNode[] = [
       {
         text: "Klapptür öffnen, du verlierst immernoch Gesundheit",
         requiredState: (player: Player) =>
-          !player.missions["tuchMission"] && player.missions["doorMission"],
+          !player.missions["tuchMission"] && player.missions["memoryMission"],
         setState: (player: Player) => {
           player.stats["health"] -= 10;
         },
@@ -95,28 +93,29 @@ export const textNodes2: TextNode[] = [
       {
         text: "Klapptür öffnen",
         requiredState: (player: Player) =>
-          player.missions["tuchMission"] && player.missions["doorMission"],
+          player.missions["tuchMission"] && player.missions["memoryMission"],
         nextText: 12,
       },
       {
         text: "Klapptür öffnen, du verlierst immernoch Gesundheit",
         requiredState: (player: Player) =>
-          !player.missions["tuchMission"] && !player.missions["doorMission"],
+          !player.missions["tuchMission"] && !player.missions["memoryMission"],
         nextText: 7,
       },
       {
         text: "Klapptür öffnen",
         requiredState: (player: Player) =>
-          player.missions["tuchMission"] && !player.missions["doorMission"],
+          player.missions["tuchMission"] && !player.missions["memoryMission"],
         nextText: 7,
       },
       {
         text: "Mithilfe einer Hebelwirkung die Tür aufbrechen",
-        requiredState: (player: Player) => !player.missions["doorMission"],
+        requiredState: (player: Player) => !player.missions["memoryMission"],
         setState: (player: Player) => {
           if (!player.missions["tuchMission"]) {
             player.stats["health"] -= 20;
           }
+          player.missions["memoryMission"] = true;
         },
         nextText: 33,
       },
@@ -236,7 +235,7 @@ export const textNodes2: TextNode[] = [
   },
   {
     id: 12,
-    text: "Die Klapprür geht auf. was tun?",
+    text: "Die Klapptür geht auf. was tun?",
     options: [
       {
         text: "Herunterspringen",
@@ -255,11 +254,16 @@ export const textNodes2: TextNode[] = [
       {
         text: "Langsam und leise herunterschleichen",
         requiredState: (player: Player) => player.stats["health"] < 50,
+
         nextText: 13,
       },
       {
         text: "Langsam und leise herunterschleichen",
         requiredState: (player: Player) => player.stats["health"] >= 50,
+        setState: (player: Player) => {
+          player.equipment[0] = "Axt";
+          player.stats["gold"] += 3;
+        },
         nextText: 16,
       },
     ],
@@ -292,13 +296,12 @@ export const textNodes2: TextNode[] = [
   },
   {
     id: 16,
-    text: "Du bemerkst das du in einem Dachboden warst.\nUnten findest du: 2 Flaschen (1. H2O2 und 2. H2O), einen wietern Teil der Notiz, eine Axt un 3 Goldstücke.",
+    text: "Du bemerkst das du in einem Dachboden warst.Unten findest du: 2 Flaschen (1. H2O2 und 2. H2O), einen wietern Teil der Notiz, eine Axt un 3 Goldstücke.",
     options: [
       {
         text: "H2O trinken und den Rest einstecken",
         setState: (player: Player) => {
-          player.stats["health"] += 20;
-          player.inventory["H2O2"] = true;
+          player.stats["health"] += 10;
         },
         nextText: 18,
       },
@@ -308,10 +311,6 @@ export const textNodes2: TextNode[] = [
           player.stats["health"] = 0;
         },
         nextText: 17,
-      },
-      {
-        text: "Notiz lesen",
-        nextText: 50,
       },
     ],
   },
@@ -337,7 +336,7 @@ export const textNodes2: TextNode[] = [
   },
   {
     id: 19,
-    text: "Du bist an der Burg angekommen, du siehst einen Graben rund um die Pechschwarze Burg,\nder mit Wasser befüllt ist und vin Alligatoren bewacht wird.\nDie Brücke, welche zum Haupttor führt wird von 3 Riesen bewacht. was tun?",
+    text: "Du bist an der Burg angekommen, du siehst einen Graben rund um die Pechschwarze Burg,der mit Wasser befüllt ist und vin Alligatoren bewacht wird.Die Brücke, welche zum Haupttor führt wird von 3 Riesen bewacht. was tun?",
     options: [
       {
         text: "Die Flasche H2O2 aus dem Rucksack nehmen und Trinken, um Kraft zu tanken",
@@ -364,7 +363,6 @@ export const textNodes2: TextNode[] = [
         text: "nach einem anderen Eingang suchen",
         setState: (player: Player) => {
           player.stats["gold"] += 7;
-          player.inventory["Haifischzahn"] = true;
         },
         nextText: 21,
       },
@@ -382,7 +380,7 @@ export const textNodes2: TextNode[] = [
   },
   {
     id: 21,
-    text: "Bei der Suche findest du eine Kiste mit 7 Goldstücken und einem Haifischzahn.\n Du steckst Gegenstände ein. Dabei wirst du von einem Zwerg erwischt.\n Er bittet dich um Hilfe: Der Zwerg erzählt, dass er nicht bei Next Zwergenmodel mitmachen könnte weil er zu dunkle Haare hat.\n „Wenn du mir nicht hilfst, um bei Next Zwergenmodel mitzumachen, verrate ich dem Wächter, dass du Gold stiehlst“, sagt er. Was machst du?",
+    text: "Bei der Suche findest du eine Kiste mit 7 Goldstücken und einem Haifischzahn. Du steckst Gegenstände ein. Dabei wirst du von einem Zwerg erwischt. Er bittet dich um Hilfe: Der Zwerg erzählt, dass er nicht bei Next Zwergenmodel mitmachen könnte weil er zu dunkle Haare hat. „Wenn du mir nicht hilfst, um bei Next Zwergenmodel mitzumachen, verrate ich dem Wächter, dass du Gold stiehlst“, sagt er. Was machst du?",
     options: [
       {
         text: "Die Flasche H2O2 auf den Kopf des Zwergen schütten",
@@ -406,7 +404,7 @@ export const textNodes2: TextNode[] = [
   },
   {
     id: 23,
-    text: "Das H2O2 bleicht die Haare des Zwerges und er erstrahlt in einem wunderschönen Blond.\nVoller Freude gibt er dir Medizin (endlich kannst du wieder scharf sehen) und ein Seil. Er meint, dass man damit am leichtesten in die Burg gelangt.",
+    text: "Das H2O2 bleicht die Haare des Zwerges und er erstrahlt in einem wunderschönen Blond.Voller Freude gibt er dir Medizin (endlich kannst du wieder scharf sehen) und ein Seil. Er meint, dass man damit am leichtesten in die Burg gelangt.",
     options: [
       {
         text: "Weiter...",
@@ -416,15 +414,11 @@ export const textNodes2: TextNode[] = [
   },
   {
     id: 24,
-    text: "Du bist nun endlich verarztet und kannst dich auf den Weg ins gemütliche Bettchen machen.\nBeim nach Hause gehen findest du einen Zettel auf dem Boden.\nDu hebst ihn auf und merkst, dass es sich um den fehlenden Teil der Notiz vom Dachboden handelt.",
+    text: "Du bist nun endlich verarztet und kannst dich auf den Weg ins gemütliche Bettchen machen.Beim nach Hause gehen findest du einen Zettel auf dem Boden.\nDu hebst ihn auf und merkst, dass es sich um den fehlenden Teil der Notiz vom Dachboden handelt.",
     options: [
       {
         text: "Weiter...",
         nextText: 25,
-      },
-      {
-        text: "Notiz ansehen",
-        nextText: 50,
       },
     ],
   },
@@ -541,7 +535,7 @@ export const textNodes2: TextNode[] = [
   },
   {
     id: 32,
-    text: "Du hast das Gold zum Vermieter deines Besten Freundes gebracht, er lacht dich aus\nEr sagt aber wenn du ihn in Schere Stein Papier besiegen könntest befreit er deinen Freund",
+    text: "Du hast das Gold zum Vermieter deines Besten Freundes gebracht, er lacht dich ausEr sagt aber wenn du ihn in Schere Stein Papier besiegen könntest befreit er deinen Freund",
     options: [],
     // Schere, Stein, Papier
   },
