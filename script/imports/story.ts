@@ -9,7 +9,7 @@ interface Option {
 
 interface TextNode {
   id: number;
-  text?: string;
+  text: string;
   options: Option[];
 }
 
