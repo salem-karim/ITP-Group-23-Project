@@ -16,7 +16,7 @@ interface TextNode {
 export const textNodes2: TextNode[] = [
   {
     id: 1,
-    text: "Du wachst ohne Erinnerung in einem Keller auf und suchst nach hinweisen, was passiert ist.Du bemerkst dass dein rechter Arm Schmerzt und Blut verliert. Du brauchst unbdedingt Medizin.Du findest auf einem Holzbrett eine Notiz",
+    text: "Du wachst ohne Erinnerung in einem Keller auf und suchst nach hinweisen, was passiert ist. Du bemerkst dass dein rechter Arm Schmerzt und Blut verliert. Du brauchst unbdedingt Medizin. Du findest auf einem Holzbrett eine Notiz",
     options: [
       {
         text: "Dich weiter umsehen",
@@ -71,7 +71,7 @@ export const textNodes2: TextNode[] = [
   },
   {
     id: 4,
-    text: "Du findest am staubigen Boden eine Klapptür und ein zerrissenes Kleidungsstück. In diesem war ein gelbes Seidentuch eingewickelt.Es fällt dir plötlzlich ein, dass es sich un das Tuch der jageneden Drachenfängerin handelt.Es ist eine Skizze einer Burg, in der es zahlreiche Rohstoffe gäbe.Du brauchst dringend ein Heilmittel gegen die Wunde an deinem rechten Arm.",
+    text: "Du findest am staubigen Boden eine Klapptür und ein zerrissenes Kleidungsstück. In diesem war ein gelbes Seidentuch eingewickelt. Es fällt dir plötlzlich ein, dass es sich un das Tuch der jageneden Drachenfängerin handelt. Es ist eine Skizze einer Burg, in der es zahlreiche Rohstoffe gäbe. Du brauchst dringend ein Heilmittel gegen die Wunde an deinem rechten Arm.",
     options: [
       {
         text: "Deinen Arm mit dem Kleidungsstück verbinden",
@@ -336,7 +336,7 @@ export const textNodes2: TextNode[] = [
   },
   {
     id: 19,
-    text: "Du bist an der Burg angekommen, du siehst einen Graben rund um die Pechschwarze Burg,der mit Wasser befüllt ist und vin Alligatoren bewacht wird.Die Brücke, welche zum Haupttor führt wird von 3 Riesen bewacht. was tun?",
+    text: "Du bist an der Burg angekommen, du siehst einen Graben rund um die Pechschwarze Burg, der mit Wasser befüllt ist und vin Alligatoren bewacht wird. Die Brücke, welche zum Haupttor führt wird von 3 Riesen bewacht. was tun?",
     options: [
       {
         text: "Die Flasche H2O2 aus dem Rucksack nehmen und Trinken, um Kraft zu tanken",
@@ -404,7 +404,7 @@ export const textNodes2: TextNode[] = [
   },
   {
     id: 23,
-    text: "Das H2O2 bleicht die Haare des Zwerges und er erstrahlt in einem wunderschönen Blond.Voller Freude gibt er dir Medizin (endlich kannst du wieder scharf sehen) und ein Seil. Er meint, dass man damit am leichtesten in die Burg gelangt.",
+    text: "Das H2O2 bleicht die Haare des Zwerges und er erstrahlt in einem wunderschönen Blond. Voller Freude gibt er dir Medizin (endlich kannst du wieder scharf sehen) und ein Seil. Er meint, dass man damit am leichtesten in die Burg gelangt.",
     options: [
       {
         text: "Weiter...",
@@ -414,7 +414,7 @@ export const textNodes2: TextNode[] = [
   },
   {
     id: 24,
-    text: "Du bist nun endlich verarztet und kannst dich auf den Weg ins gemütliche Bettchen machen.Beim nach Hause gehen findest du einen Zettel auf dem Boden.\nDu hebst ihn auf und merkst, dass es sich um den fehlenden Teil der Notiz vom Dachboden handelt.",
+    text: "Du bist nun endlich verarztet und kannst dich auf den Weg ins gemütliche Bettchen machen.Beim nach Hause gehen findest du einen Zettel auf dem Boden. Du hebst ihn auf und merkst, dass es sich um den fehlenden Teil der Notiz vom Dachboden handelt.",
     options: [
       {
         text: "Weiter...",
