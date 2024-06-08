@@ -4,9 +4,17 @@ import {
   inventory,
   missions,
 } from "../script/imports/player.js";
-let whichStory = 2;
 import { textNodes } from "../script/imports/story.js";
 import { textNodes2 } from "../script/imports/story2.js";
+let whichStory: number;
+
+if (window.location.search.includes("story=Story1")) {
+  whichStory = 1;
+} else if (window.location.search.includes("story=Story2")) {
+  whichStory = 2;
+} else {
+  whichStory = 1;
+}
 
 if (whichStory == 1) {
   var story = textNodes;

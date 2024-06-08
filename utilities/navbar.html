@@ -1,13 +1,54 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-      <a class="navbar-brand" href="#!">QuestVerse: Text Adventures</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li class="nav-item"><a class="nav-link" href="#!">Story</a></li>
-              <li class="nav-item"><a class="nav-link" href="#!">Load/Save</a></li>
-              <li class="nav-item"><a class="nav-link" href="#minigames">Minigames</a></li>
-          </ul>
-      </div>
+    <a class="navbar-brand" href="#!">QuestVerse: Text Adventures</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item custom-select-container">
+          <select
+            class="form-select custom-select"
+            id="storySelect"
+            aria-label="Select Story"
+          >
+            <option selected disabled>Select Story</option>
+            <option value="Story1">Story 1</option>
+            <option value="Story2">Story 2</option>
+          </select>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#minigames">Minigames</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
+
+<style>
+  .custom-select {
+    appearance: none;
+    background-color: #212529;
+    color: #9b9d9e;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    width: 200px;
+  }
+  .custom-select:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  }
+  .custom-select-container {
+    position: relative;
+    display: inline-block;
+  }
+</style>
