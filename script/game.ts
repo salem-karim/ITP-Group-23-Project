@@ -121,9 +121,9 @@ function showTextNode(textNodeIndex: number) {
       saveGameState(textNodeIndex);
       if (whichStory == 1) {
         player.stats["gold"] += 60;
-        window.location.href = "../sites/memory.html"; // Der Pfad zur neuen Seite
+        window.location.href = "../sites/memory.html";
       } else if (whichStory == 2) {
-        window.location.href = "../sites/memory.html"; // Sollte später memory2 sein
+        window.location.href = "../sites/memory2.html";
       }
     });
     optionButtonsElement.appendChild(memoryButton);

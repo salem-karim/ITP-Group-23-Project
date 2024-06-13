@@ -1,6 +1,7 @@
 body {
   background-image: url(../images/Memory2/MemoryBackground.jpeg);
   background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .labels {
@@ -22,11 +23,12 @@ body {
 }
 
 .karte {
-  height: 64px;
-  width: 64px;
-  background-image: url(../images/Memory2/memoryBg.png);
+  height: 100px;
+  width: 100px;
+  background-color: lightgray;
   float: left;
   margin: 2px;
+  cursor: pointer;
 }
 
 #spielbereich {
