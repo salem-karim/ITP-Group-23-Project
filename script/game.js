@@ -1,7 +1,7 @@
 import { Player, } from "../script/imports/player.js";
 import { textNodes } from "../script/imports/story.js";
 import { textNodes2 } from "../script/imports/story2.js";
-let whichStory;
+let whichStory = 1;
 if (window.location.search.includes("story=Story1")) {
     whichStory = 1;
 }
@@ -102,14 +102,14 @@ function showTextNode(textNodeIndex) {
         memoryButton.classList.add("btn");
         memoryButton.addEventListener("click", () => {
             player.missions["memoryMission"] = true;
-            saveGameState(textNodeIndex);
             if (whichStory == 1) {
                 player.stats["gold"] += 60;
-                window.location.href = "../sites/memory.html"; // Der Pfad zur neuen Seite
+                window.location.href = "../sites/memory.html";
             }
             else if (whichStory == 2) {
-                window.location.href = "../sites/memory.html"; // Sollte später memory2 sein
+                window.location.href = "../sites/memory2.html";
             }
+            saveGameState(textNodeIndex);
         });
         optionButtonsElement.appendChild(memoryButton);
     }
@@ -146,7 +146,7 @@ function showTextNode(textNodeIndex) {
         if (textNodeIndex === 29) {
             const doorButton = document.createElement("button");
             doorButton.innerText = "Die Tür aufbrechen";
-            doorButton.classList.add("btn ");
+            doorButton.classList.add("btn");
             doorButton.addEventListener("click", () => {
                 saveGameState(textNodeIndex);
                 window.location.href = "../sites/door2.html";
