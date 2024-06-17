@@ -50,9 +50,6 @@ function startGame(Index) {
     else if (window.location.search.includes("story=Story2")) {
         whichStory = 2;
     }
-    else {
-        whichStory = 1;
-    }
     // Load the correct story
     setStory();
     // Show the text, options, and update the player stats
