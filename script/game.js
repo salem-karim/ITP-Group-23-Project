@@ -189,14 +189,46 @@ function addSpecialButtons(textNodeIndex) {
             messageButton.innerText = "Notiz lesen";
             messageButton.classList.add("btn");
             messageButton.addEventListener("click", () => {
-                let message = "Vergiss nicht mein … *zerrissener Teil* Go… und denk immer daran vorsichtig zu sein";
-                let bootstrapAlert = document.getElementById("alert_placeholder");
-                if (textNodeIndex === 24) {
-                    message =
-                        "Vergiss nicht mein Freund, dass ich stark wie ein Grizzlybär bin. Du brauchst also keine Angst haben, dass mir während meiner Mission etwas zustößt. Aber für den Fall der Fälle, dass ich nicht zurückkehre, denk bitte daran: Bringe 45 Goldstücke an meinen Vermieter. Er ist hinter mir her, da ich den Zins nicht überwiesen habe und vermutlich der Grund, warum ich entführt wurde. Und denk immer daran vorsichtig zu sein. LG, dein bester Freund Siegbert.";
-                }
-                bootstrapAlert.innerHTML =
-                    '<div class="alert alert-light"><span>' + message + "</span></div>";
+                  
+                        var imageContainer =
+                            document.createElement("div");
+                        imageContainer.className =
+                            "image-container";
+        
+                        var image =
+                            document.createElement("img");
+                        if (textNodeIndex === 1) {
+                            image.src =
+                            "..//Notiz_Story_x/Note5.png";
+                        } else if (textNodeIndex === 16) {
+                            image.src =
+                            "..//Notiz_Story_x/Note4.png";
+                        } else if (textNodeIndex === 24) {
+                            image.src =
+                            "..//Notiz_Story_x/Note2.png";
+                        }
+                        var closeButton =
+                            document.createElement(
+                                "button"
+                            );
+                        closeButton.textContent = "X";
+                        closeButton.className =
+                            "close-btn";
+                        closeButton.onclick =
+                            function () {
+                                document.body.removeChild(
+                                    imageContainer
+                                );
+                            };
+        
+                        imageContainer.appendChild(
+                            closeButton
+                        );
+                        imageContainer.appendChild(image);
+        
+                        document.body.appendChild(
+                            imageContainer
+                        );
             });
             optionButtonsElement.appendChild(messageButton);
         }
