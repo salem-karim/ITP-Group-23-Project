@@ -8,22 +8,28 @@ var matchedCardIds = [];
 var success = 0;
 let time = 1000;
 
-$(document).ready(function() {
-  bootstrap_alert.load('Du hast 120 Sekunden Zeit um das Memory Spiel zu gewinnen!');
+$(document).ready(function () {
+  bootstrap_alert.load(
+    "Du hast 120 Sekunden Zeit um das Memory Spiel zu gewinnen!",
+  );
 });
 
-bootstrap_alert = function() {}
-bootstrap_alert.load = function(message) {
-    $('#alert_placeholder').html('<div class="alert alert-light"><span>'+message+'</span></div>')
-}
-bootstrap_alert.win = function(message) {
-    $('#alert_placeholder').html('<div class="alert alert-light"><span>'+message+'</span></div>')
-}
-bootstrap_alert.loss = function(message) {
-  $('#alert_placeholder').html('<div class="alert alert-light"><span>'+message+'</span></div>')
-}
-
-
+bootstrap_alert = function () {};
+bootstrap_alert.load = function (message) {
+  $("#alert_placeholder").html(
+    '<div class="alert alert-light"><span>' + message + "</span></div>",
+  );
+};
+bootstrap_alert.win = function (message) {
+  $("#alert_placeholder").html(
+    '<div class="alert alert-light"><span>' + message + "</span></div>",
+  );
+};
+bootstrap_alert.loss = function (message) {
+  $("#alert_placeholder").html(
+    '<div class="alert alert-light"><span>' + message + "</span></div>",
+  );
+};
 
 var counter = setInterval(countTimer, time); // set the counter
 
@@ -75,7 +81,7 @@ function clickCard(event) {
   }
 
   if (flippedCards === 2) {
-    setTimeout(function() {
+    setTimeout(function () {
       resetFlippedCards();
     }, 350);
     if (matchedCardIds.length + 2 === cards.length) {
@@ -95,7 +101,8 @@ function flipCard(id) {
   if (currentCard) {
     // try flipping the card and catch any errors
     try {
-      currentCard.style.backgroundImage = "url('../images/Memory/card" + id + ".png')";
+      currentCard.style.backgroundImage =
+        "url('../images/Memory/card" + id + ".png')";
     } catch (error) {
       console.error("Error flipping card:", id, error);
     }
@@ -112,19 +119,20 @@ function flipCard(id) {
           .getElementById(prevoiusCardId)
           .removeEventListener("click", clickCard);
         currentCard.removeEventListener("click", clickCard);
-        setTimeout(function() {
+        setTimeout(function () {
           if (currentCard) {
-            currentCard.style.backgroundImage = "url('../images/Memory/memoryBgI.png')";
+            currentCard.style.backgroundImage =
+              "url('../images/Memory/memoryBgI.png')";
           }
           if (document.getElementById(prevoiusCardId)) {
             document.getElementById(prevoiusCardId).style.backgroundImage =
               "url('../images/Memory/memoryBgI.png')";
-              success++;
-              console.log(success);
-              //Testzwecke
-              if (success === 2){ 
-                youWon();
-              }
+            success++;
+            console.log(success);
+            //Testzwecke
+            if (success === 8) {
+              youWon();
+            }
           }
           matchedCardIds.push(prevoiusCardId, id);
           prevoiusCardId = 0;
@@ -135,9 +143,10 @@ function flipCard(id) {
           .getElementById(prevoiusCardId)
           .addEventListener("click", clickCard);
         currentCard.addEventListener("click", clickCard);
-        setTimeout(function() {
+        setTimeout(function () {
           if (currentCard) {
-            currentCard.style.backgroundImage = "url('../images/Memory/memoryBg.png')";
+            currentCard.style.backgroundImage =
+              "url('../images/Memory/memoryBg.png')";
           }
           if (document.getElementById(prevoiusCardId)) {
             document.getElementById(prevoiusCardId).style.backgroundImage =
@@ -149,7 +158,7 @@ function flipCard(id) {
     }
     // if 2 cards are flipped reset the flipped cards counter and add event listeners back to the cards
     if (flippedCards === 2) {
-      setTimeout(function() {
+      setTimeout(function () {
         resetFlippedCards();
       }, 350);
     }
@@ -164,17 +173,22 @@ function resetFlippedCards() {
   flippedCards = 0;
 }
 
-function youWon(){
-  if (seconds < 120){
-    bootstrap_alert.win('Glückwunsch! Du hast das Memory Spiel in ' + tries + ' Versuchen und ' + seconds + ' Sekunden gewonnen!');
-    setTimeout(function() {
-      window.location.href = '../index.html';
+function youWon() {
+  if (seconds < 120) {
+    bootstrap_alert.win(
+      "Glückwunsch! Du hast das Memory Spiel in " +
+        tries +
+        " Versuchen und " +
+        seconds +
+        " Sekunden gewonnen!",
+    );
+    setTimeout(function () {
+      window.location.href = "../index.html";
     }, 5000);
   } else {
-    bootstrap_alert.loss('Du warst etwas zu Langsam!');
-    setTimeout(function() {
+    bootstrap_alert.loss("Du warst etwas zu Langsam!");
+    setTimeout(function () {
       window.location.reload();
     }, 5000);
   }
 }
-

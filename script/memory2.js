@@ -140,7 +140,7 @@ function flipCard(id) {
           if (previousCard) {
             previousCard.style.backgroundColor = "#696969";
             success++;
-            if (success === 4) {
+            if (success === 8) {
               youWon();
             }
           }
